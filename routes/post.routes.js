@@ -6,7 +6,7 @@ const isOwner = require("../middleware/isOwner.js")
 
 router.get("/", async (req, res) => {
   try {
-    const posts = await Post.find()
+    const posts = await Post.find().populate("owner")
 
     return res.status(200).json(posts)
   } catch (error) {
@@ -19,7 +19,7 @@ router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params
 
-    const post = await Post.findById(id)
+    const post = await Post.findById(id).populate("owner")
     return res.status(200).json(post)
   } catch (error) {
     console.log(error)
